@@ -1,36 +1,39 @@
 {
-	"name": "sahara",
-	"version": "1.0.1",
-	"description": "An inversion-of-control container for managing dependencies. Supports constructor, property and method injection",
-	"keywords": [ "ioc", "inversion", "control", "dependency", "injection", "container" ],
-	"directories": {
-		"lib": "src"
-	},
-
-	"files": [
-		"src",
-		"index.js"
-	],
-
-	"author": "Tommy Montgomery <tmont@tmont.com> (http://tmont.com/)",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/tmont/sahara.git"
-	},
-
-	"dependencies": {
-		"dep-graph": "1.1.0",
-		"node-uuid": "1.4.1",
-		"async": "0.2.10"
-	},
-
-	"devDependencies": {
-		"mocha": "1.17.1",
-		"should": "3.1.2",
-		"istanbul": "0.2.4"
-	},
-
-	"scripts": {
-		"test": "./node_modules/.bin/mocha -R dot tests"
-	}
+  "name": "sahara",
+  "version": "1.0.1",
+  "description": "An inversion-of-control container for managing dependencies. Supports constructor, property and method injection",
+  "keywords": [
+    "ioc",
+    "inversion",
+    "control",
+    "dependency",
+    "injection",
+    "container"
+  ],
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "author": "Tommy Montgomery <tmont@tmont.com> (http://tmont.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmont/sahara.git"
+  },
+  "dependencies": {
+    "dep-graph": "1.1.0",
+    "node-uuid": "1.4.1",
+    "async": "0.2.10",
+    "eventemitter2": "~0.4.13"
+  },
+  "devDependencies": {
+    "mocha": "1.17.1",
+    "should": "3.1.2",
+    "istanbul": "0.2.4"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R dot tests"
+  }
 }

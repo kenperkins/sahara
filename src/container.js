@@ -1,6 +1,7 @@
 var DependencyGraph = require('dep-graph'),
 	ObjectBuilder = require('./builder'),
-	lifetimes = require('./lifetime'),
+  EventEmitter2 = require('eventemitter2').EventEmitter2,
+  lifetimes = require('./lifetime'),
 	async = require('async'),
 	util = require('./util');
 
@@ -45,7 +46,11 @@ function Container(parent) {
 		this.resolve.bind(this),
 		this.resolveSync.bind(this)
 	);
+
+  EventEmitter2.call(this, { delimiter: '::', wildcard: true });
 }
+
+util.inherits(Container, EventEmitter2);
 
 function resolveSignatureToOptions(args) {
 	args = [].slice.call(args, 1);
@@ -177,6 +182,7 @@ Container.prototype = {
 	 * @param {Function} callback
 	 */
 	resolve: function(key, callback) {
+    var start = new Date().getTime();
 		if (typeof(key) === 'function') {
 			key = getKeyFromCtor(key);
 		}
@@ -189,6 +195,10 @@ Container.prototype = {
 
 		var existing = registration.lifetime.fetch();
 		if (existing) {
+      this.emit('log::resolve', 'Found an existing instance', {
+        time: new Date().getTime - start,
+        type: key
+      });
 			callback(null, existing);
 			return;
 		}
@@ -205,6 +215,10 @@ Container.prototype = {
 					registration.lifetime.store(instance);
 				}
 
+        this.emit('log::resolve', 'Injected an instance', {
+          time: new Date().getTime - start,
+          type: key
+        });
 				callback(err, instance);
 			});
 		}
@@ -225,6 +239,7 @@ Container.prototype = {
 	 * @return {*} The resolved object
 	 */
 	resolveSync: function(key) {
+    var start = new Date().getTime();
 		if (typeof(key) === 'function') {
 			key = getKeyFromCtor(key);
 		}
@@ -236,6 +251,10 @@ Container.prototype = {
 
 		var existing = registration.lifetime.fetch();
 		if (existing) {
+      this.emit('log::resolve', 'Found an existing instance', {
+        time: new Date().getTime - start,
+        type: key
+      });
 			return existing;
 		}
 
@@ -250,6 +269,10 @@ Container.prototype = {
 
 		this.injectSync(instance, key);
 		registration.lifetime.store(instance);
+    this.emit('log::resolve', 'Injected an instance (sync)', {
+      time: new Date().getTime - start,
+      type: key
+    });
 		return instance;
 	},
 
