@@ -216,7 +216,7 @@ Container.prototype = {
 					registration.lifetime.store(instance);
 				}
 
-        this.emit('log::resolve', 'Injected an instance', {
+        self.emit('log::resolve', 'Injected an instance', {
           time: new Date().getTime - start,
           type: key
         });
