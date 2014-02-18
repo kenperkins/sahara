@@ -3,6 +3,7 @@ var DependencyGraph = require('dep-graph'),
   EventEmitter2 = require('eventemitter2').EventEmitter2,
   lifetimes = require('./lifetime'),
 	async = require('async'),
+  coreUtil = require('util'),
 	util = require('./util');
 
 function createUnregisteredError(key) {
@@ -50,7 +51,7 @@ function Container(parent) {
   EventEmitter2.call(this, { delimiter: '::', wildcard: true });
 }
 
-util.inherits(Container, EventEmitter2);
+coreUtil.inherits(Container, EventEmitter2);
 
 function resolveSignatureToOptions(args) {
 	args = [].slice.call(args, 1);
