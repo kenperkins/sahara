@@ -196,7 +196,7 @@ Container.prototype.resolve = function(key, callback) {
   var existing = registration.lifetime.fetch();
   if (existing) {
     this.emit('log::resolve', 'Found an existing instance', {
-      time: new Date().getTime - start,
+      time: new Date().getTime() - start,
       type: key
     });
     callback(null, existing);
@@ -216,7 +216,7 @@ Container.prototype.resolve = function(key, callback) {
       }
 
       self.emit('log::resolve', 'Injected an instance', {
-        time: new Date().getTime - start,
+        time: new Date().getTime() - start,
         type: key
       });
       callback(err, instance);
@@ -252,7 +252,7 @@ Container.prototype.resolveSync = function(key) {
   var existing = registration.lifetime.fetch();
   if (existing) {
     this.emit('log::resolve', 'Found an existing instance', {
-      time: new Date().getTime - start,
+      time: new Date().getTime() - start,
       type: key
     });
     return existing;
@@ -270,7 +270,7 @@ Container.prototype.resolveSync = function(key) {
   this.injectSync(instance, key);
   registration.lifetime.store(instance);
   this.emit('log::resolve', 'Injected an instance (sync)', {
-    time: new Date().getTime - start,
+    time: new Date().getTime() - start,
     type: key
   });
   return instance;
